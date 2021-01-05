@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    font-family: 'Roboto', sans-serif;
+}
+
+footer {
+    height: 50px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    width: 100vw;
+    flex: auto;
+    flex-direction: column;
+}
+
+/* QUIZ */
+.quiz {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quiz > .question {
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+.quiz > .answer {
+    border: 1px solid transparent;
+    font-size: 18px;
+    padding: 15px;
+}
+
+.quiz > .answer:hover {
+    border: 1px solid #000;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.quiz > .answer:active {
+    border: 1px solid #000;
+    background-color: mediumblue;
+    cursor: pointer;
+}
