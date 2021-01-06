@@ -1,10 +1,27 @@
 [
   {
-    "question": "Nektari suhrusisaldus on 8-80%. Mis juhtub kui see pole õige?",
+    "title": "Nektari suhrusisaldus on 8-80%. Mis juhtub kui see pole õige?",
     "answers": [
       "Midagi",
       "Kõik",
       "Mesindus on raske"
+    ]
+  },
+  {
+    "title": "Nektari suhrusisaldus heaaaaa?",
+    "answers": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "title": "Kolmas küsimmus",
+    "answers": [
+      "Kuu",
+      "Päike",
+      "Vesi",
+      "Mingi hästi pikk vastus mis venib üle mitme rea ja on täiega imelik mingites olukordades"
     ]
   }
 ]

@@ -16,11 +16,15 @@
     <header class="centered">Bee QUIZ</header>
     <div class="main-container centered">
         <div class="quiz">
-            <div class="question">Nektari suhrusisaldus on 8-80%. Mis juhtub kui see pole õige?</div>
+            <div class="question-content">
+                <h2>Eessõna</h2>
 
-            <div class="answer">a) Midagi sest nii on okei</div>
-            <div class="answer">b) Läheb väga suhkruks kätte ära</div>
-            <div class="answer">c) Ei tea, imelik küsimus</div>
+                <span>Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne</span>
+                <span>Progress saveb automaatselt sinu browserisse</span>
+
+                <button onclick="window.quiz.renderQuestion()">Alusta</button>
+                <button onclick="window.quiz.clearProgress()">Alusta algusest</button>
+            </div>
         </div>
     </div>
     <footer class="centered">by Agnes Peinar</footer>

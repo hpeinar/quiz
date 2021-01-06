@@ -7,12 +7,16 @@ class Quiz {
   };
   questions;
 
+  $questionContainer;
+
   constructor () {}
 
-  async initQuiz (questionsAsset) {
+  async initQuiz (questionsAsset, questionContainerSelector) {
     // Load questions
     this.questions = await this.getQuestions(questionsAsset);
     console.log(this.questions, 'Questions loaded');
+
+    this.$questionContainer = document.getElementsByClassName(questionContainerSelector)[0];
 
     // Load user progress
     this.loadProgress();
@@ -27,7 +31,49 @@ class Quiz {
   }
 
   renderQuestion () {
+    const question = this.questions[this.state.activeQuestion];
+    console.log('Rendering question', question.answers);
 
+    this.$questionContainer.innerHTML = `
+            <div class="question">${question.title}</div>
+
+            ${question.answers.map((answer, index) => {
+              return `<div class="answer" data-index="${index}">${this._indexToLetter(index)}) ${answer}</div>`
+            }).join('')}
+            
+            <button onclick="window.quiz.renderQuestion()" class="next-question-button" disabled="disabled">Järgmine küsimus</button>
+    `;
+
+    // As we're not keeping the references to the DOM Elements
+    // We don't have to worry about dangling event listeners as these will be removed by GC
+    document.querySelectorAll('.answer').forEach($anwserElement => {
+      $anwserElement.addEventListener('click', this.answerClickHandler.bind(this));
+    })
+  }
+
+  answerClickHandler ($event) {
+    const questionIndex = $event.target.dataset.index;
+
+    // Always add a special class to the answer user selected
+    $event.target.classList.add('user-selected');
+
+    // Increment active question
+    this.state.activeQuestion++;
+
+    // TODO: Check quiz over state
+
+    // If the correct answer was given, just paint it green
+    // Otherwise paint it red and give correct answer green tint
+    if (+questionIndex === 0) {
+      $event.target.classList.add('correct');
+    } else {
+      document.querySelector('[data-index="0"]').classList.add('correct');
+      $event.target.classList.add('wrong');
+    }
+
+    document.querySelector('.next-question-button').disabled = false;
+
+    this.saveProgress();
   }
 
   // Saves user progress to device using localStorage
@@ -58,5 +104,8 @@ class Quiz {
     }
   }
 
+  _indexToLetter (index) {
+    return 'abcdefghijklmnopqrstuvw'[index];
+  }
 
 }
