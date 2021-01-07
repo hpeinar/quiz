@@ -1,32 +1,85 @@
-<!doctype html>
-<html lang="et">
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mesindusküsimustik</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-
-    <script src="js/quiz.js" type="text/javascript"></script>
-    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/main.js"></script>
+    <script src="js/quiz.js"></script>
 </head>
-<body>
-    <header class="centered">Bee QUIZ</header>
-    <div class="main-container centered">
-        <div class="quiz">
-            <div class="question-content">
-                <h2>Eessõna</h2>
+<body class="is-preload">
 
-                <span>Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne</span>
-                <span>Progress saveb automaatselt sinu browserisse</span>
+<!-- Wrapper -->
+<div id="wrapper">
 
-                <button onclick="window.quiz.renderQuestion()">Alusta</button>
-                <button onclick="window.quiz.clearProgress()">Alusta algusest</button>
-            </div>
-        </div>
-    </div>
-    <footer class="centered">by Agnes Peinar</footer>
+    <!-- Main -->
+    <section id="main" class="question-content">
+<!--            <header>-->
+<!--            <h1></h1>-->
+<!--            <p><b>Mingi väga pikk küsimus milles on numbrid ja tähed ja protsendid %%% 5-405%-->
+<!--            Mingi väga pikk küsimus milles on numbrid ja tähed ja protsendid %%% 5-405%</b></p>-->
+<!--            </header>-->
+<!--            <hr />-->
+<!--            <p>-->
+<!--            <b>a)</b> Mingi väga pikk küsimus milles on numbrid ja tähed ja protsendid %%% 5-405%-->
+<!--            </p>-->
+<!--            <hr />-->
+<!--            <p>-->
+<!--            <b>b)</b> Mingi väga pikk küsimus milles on numbrid ja tähed ja protsendid %%% 5-405%-->
+<!--            </p>-->
+<!--            <hr />-->
+<!--            <p>-->
+<!--            <b>c)</b> Mingi väga pikk küsimus milles on numbrid ja tähed ja protsendid %%% 5-405%-->
+<!--            </p>-->
+<!--            <footer>-->
+<!--            <ul class="icons">-->
+<!--            <li><button onclick="console.log('tere');">Järgmine küsimus</button></li>-->
+<!--            </ul>-->
+<!--            </footer>-->
+        <header>
+            <h1>Eessõna</h1>
+            <p></p>
+        </header>
+        <hr />
+        <p>
+            Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne
+            Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne
+            Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne
+            Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne
+            Mingi pikk tekst selle kohta kuidas see käib ja kuidas lahendada jne
+        </p>
+        <footer>
+            <ul class="icons">
+                <li><button onclick="window.quiz.renderQuestion()">Alusta küsimustega</button></li>
+                <li><button onclick="window.quiz.clearProgress()">Alusta algusest</button></li>
+            </ul>
+        </footer>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="copyright">
+            <li><a href="https://www.facebook.com/ImShawty" target="_blank">&copy; Agnes Peinar</a></li><li>Kood: Henrik Peinar</li>
+        </ul>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script>
+  if ('addEventListener' in window) {
+    window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+    document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+  }
+</script>
+
 </body>
 </html>

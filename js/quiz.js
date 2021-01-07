@@ -35,13 +35,25 @@ class Quiz {
     console.log('Rendering question', question.answers);
 
     this.$questionContainer.innerHTML = `
-            <div class="question">${question.title}</div>
+            <header>
+              <h1></h1>
+              <p><b>${question.title}</b></p>
+            </header>
 
             ${question.answers.map((answer, index) => {
-              return `<div class="answer" data-index="${index}">${this._indexToLetter(index)}) ${answer}</div>`
+              return `
+              <p class="answer" data-index="${index}">
+                <b>${this._indexToLetter(index)})</b> ${answer}
+              </p>`;
             }).join('')}
-            
-            <button onclick="window.quiz.renderQuestion()" class="next-question-button" disabled="disabled">Järgmine küsimus</button>
+
+            <footer>
+              <ul class="icons">
+                <li>            
+                    <button onclick="window.quiz.renderQuestion()" class="next-question-button" disabled="disabled">Järgmine küsimus</button>
+                </li>
+              </ul>
+            </footer>
     `;
 
     // As we're not keeping the references to the DOM Elements
