@@ -27,7 +27,36 @@ class Quiz {
 
   getQuestions (assetPath) {
     return fetch(assetPath)
-      .then(response => response.json())
+      .then(async response => {
+        const body = await response.text();
+        const rows = body.split('\n');
+
+        // Map to remap correct question letters to Array indexes
+        const questionAnswerMap = {
+          a: 0,
+          b: 1,
+          c: 2,
+        };
+
+        // Data is in TSV format, so first split by lines, then by tabs
+        return rows.map((row, index) => {
+          // Skip header row
+          if (!index) return;
+
+          const questionData = row.split('\t');
+
+          console.log('correct answer', questionData[4]);
+          return {
+            title: questionData[0],
+            answers: [
+              questionData[1],
+              questionData[2],
+              questionData[3],
+            ].filter(a => a),
+            correctAnswer: questionAnswerMap[questionData[4].trim()],
+          }
+        }).filter(q => q);
+      })
       .catch((err) => {
         console.error(err, `Failed to load Questions, invalid path provided? assetPath: ${assetPath}`);
       });
@@ -37,7 +66,7 @@ class Quiz {
     const question = this.questions[this.state.shuffledQuestions[this.state.activeQuestion]];
 
     // Correct answer always lies at place 0
-    const correctAnwser = question.answers[0];
+    const correctAnswer = question.answers[question.correctAnswer];
 
     const answers = this._shuffleArray(question.answers);
 
@@ -49,7 +78,7 @@ class Quiz {
 
             ${answers.map((answer, index) => {
               return `
-              <p class="answer" data-valid="${answer === correctAnwser}">
+              <p class="answer" data-valid="${answer === correctAnswer}">
                 <b>${this._indexToLetter(index)})</b> ${answer}
               </p>`;
             }).join('')}
