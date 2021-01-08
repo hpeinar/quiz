@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+
     <script src="js/main.js"></script>
     <script src="js/quiz.js"></script>
 </head>
@@ -58,7 +60,7 @@
         </p>
         <footer>
             <ul class="icons">
-                <li><button onclick="window.quiz.renderQuestion()">Alusta küsimustega</button></li>
+                <li><button onclick="window.quiz.renderNextQuestion()">Alusta küsimustega</button></li>
                 <li><button onclick="window.quiz.clearProgress()">Alusta algusest</button></li>
             </ul>
         </footer>

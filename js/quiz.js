@@ -2,8 +2,11 @@ class Quiz {
   LOCALSTORAGE_SAVE_KEY = 'quiz-progress';
 
   state = {
+    seed: '',
     activeQuestion: 0,
-    answeredQuestions: [],
+    correctAnswers: 0,
+    wrongAnswers: 0,
+    shuffledQuestions: [],
   };
   questions;
 
@@ -30,9 +33,13 @@ class Quiz {
       });
   }
 
-  renderQuestion () {
-    const question = this.questions[this.state.activeQuestion];
-    console.log('Rendering question', question.answers);
+  renderNextQuestion () {
+    const question = this.questions[this.state.shuffledQuestions[this.state.activeQuestion]];
+
+    // Correct answer always lies at place 0
+    const correctAnwser = question.answers[0];
+
+    const answers = this._shuffleArray(question.answers);
 
     this.$questionContainer.innerHTML = `
             <header>
@@ -40,9 +47,9 @@ class Quiz {
               <p><b>${question.title}</b></p>
             </header>
 
-            ${question.answers.map((answer, index) => {
+            ${answers.map((answer, index) => {
               return `
-              <p class="answer" data-index="${index}">
+              <p class="answer" data-valid="${answer === correctAnwser}">
                 <b>${this._indexToLetter(index)})</b> ${answer}
               </p>`;
             }).join('')}
@@ -50,7 +57,7 @@ class Quiz {
             <footer>
               <ul class="icons">
                 <li>            
-                    <button onclick="window.quiz.renderQuestion()" class="next-question-button" disabled="disabled">Järgmine küsimus</button>
+                    <button onclick="window.quiz.renderNextQuestion()" class="next-question-button" disabled="disabled">Järgmine küsimus</button>
                 </li>
               </ul>
             </footer>
@@ -64,7 +71,7 @@ class Quiz {
   }
 
   answerClickHandler ($event) {
-    const questionIndex = $event.target.dataset.index;
+    const isCorrectAnwser = $event.target.dataset.valid;
 
     // Always add a special class to the answer user selected
     $event.target.classList.add('user-selected');
@@ -76,10 +83,10 @@ class Quiz {
 
     // If the correct answer was given, just paint it green
     // Otherwise paint it red and give correct answer green tint
-    if (+questionIndex === 0) {
+    if (isCorrectAnwser === "true") {
       $event.target.classList.add('correct');
     } else {
-      document.querySelector('[data-index="0"]').classList.add('correct');
+      document.querySelector('[data-valid="true"]').classList.add('correct');
       $event.target.classList.add('wrong');
     }
 
@@ -106,10 +113,23 @@ class Quiz {
         console.error(e, 'Failed to parse saved progress');
       }
     }
+
+    // If state seed is not present, generate one now, this is just a random short seed
+    if (!this.state.seed) {
+      this.state.seed = +(Math.random() * 1000000).toFixed(0);
+    }
+
+    // Randomise question order
+    // Create an array of question indexes
+    const questionsIndexes = this.questions.map((q, index) => index);
+
+    // Shuffle the array using seeded random, with the same seed and same number of questions, this will always
+    // result in the same array
+    this.state.shuffledQuestions = this._shuffleArray(questionsIndexes, this.state.seed);
   }
 
   clearProgress () {
-    localStorage.setItem(this.LOCALSTORAGE_SAVE_KEY, undefined);
+    localStorage.removeItem(this.LOCALSTORAGE_SAVE_KEY);
     this.state = {
       activeQuestion: 0,
       answeredQuestions: [],
@@ -120,4 +140,23 @@ class Quiz {
     return 'abcdefghijklmnopqrstuvw'[index];
   }
 
+  _shuffleArray (array, seed) {
+    const seededRandom = new Math.seedrandom(seed);
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(seededRandom() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 }
